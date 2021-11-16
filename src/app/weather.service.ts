@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
-import axios from 'axios';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+
+import { config }  from '../config/config'
 import { CurrentWeather } from './current-weather';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,18 +18,15 @@ export class WeatherService {
                                     'Ensolarado',
                                     '23°',
                                     '37°');
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   weatherNow() {
     return this.current;
   }
 
-  public async getCurrentWeather() {
-    try {
-      const response = await axios.get('https://api.openweathermap.org/data/2.5/weather?q=são joão de meriti,br&units=metric&lang=pt_br&APPID=6e5887074f9a801daa98e6d923415e8b');
-      console.log(response.data);
-    } catch (error) {
-      console.log(error)
-    }
+  localWeather(lat: string, long: string) {
+    return this.http.get(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${config.API_KEY}&units=metric&lang=pt_br`)
+                    .pipe(map((res: any) => res))
+
   }
 }
