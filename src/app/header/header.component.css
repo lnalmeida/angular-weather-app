@@ -1,0 +1,13 @@
+nav {
+  padding: 1.875rem 1.5rem;
+  font-weight: 600;
+  font-size: 1.125rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fff;
+  justify-content: flex-start;
+}
+
+nav a {
+  margin-right: 1.5rem;
+}
