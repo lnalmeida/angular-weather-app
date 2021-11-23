@@ -1,1 +1,28 @@
-<h1>forecast works!</h1>
+<main>
+  <div class="cityInput">
+    <div class="form-group">
+      <div>
+        <input type="text" class="form-control" ngModel name="city" aria-describedby="cityHelp" placeholder="Digite o nome da cidade">
+        <small id="cityHelp" class="form-text text-muted">Digite o nome da cidade a qual deseja saber a previsão para os próximos dias.</small>
+      </div>
+      <button type="submit" name="find-button" class="btn btn-primary btn-lg btn-block">Pesquisar</button>
+    </div>
+  </div>
+  <div class="container-fluid">
+      <div *ngFor="let day of [1,2,3,4,5]"  class="card" id="card-wrapper">
+        <div class="card-body" id="body-card">
+          <h2 class="weather">Data</h2>
+          <h2 class="weather">Nublado</h2>
+          <div class="img">
+            <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="Clima">
+          </div>
+          <h3 class="temp">24° C</h3>
+          <h4 class= "variation">Mínima: <span>15° C</span></h4>
+          <h4 class= "variation">Máxima: <span>25° C</span></h4>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p>My Weather Advisor - &copy; 2021 - Luiz Nunes</p>
+    </footer>
+</main>

@@ -1,13 +1,13 @@
 nav {
-  padding: 1.875rem 1.5rem;
+  padding: 0.7rem 0.3rem;
   font-weight: 600;
-  font-size: 1.125rem;
+  font-size: 0.8rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #fff;
   justify-content: flex-start;
 }
 
-nav a {
-  margin-right: 1.5rem;
+nav .menu {
+  margin-right: 1rem;
 }

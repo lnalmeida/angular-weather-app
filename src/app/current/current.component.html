@@ -1,13 +1,20 @@
 <div class="container-fluid">
   <div class="wrapper">
-    <h1>{{myWeather.cityName}}</h1>
-    <h2>{{myWeather.tipoClima}}</h2>
+    <h1 class="city">{{myWeather.cityName}}</h1>
+    <h2 class="weather">{{myWeather.tipoClima}}</h2>
     <div class="img">
       <img src="{{myWeather.imageClimaURI}}" alt="Clima">
     </div>
-    <h3>{{myWeather.temp}}° C</h3>
-    <h4>Mínima: <span>{{myWeather.tempMinima}}° C</span></h4>
-    <h4>Máxima: <span>{{myWeather.tempMaxima}}° C</span></h4>
+    <h3 class="temp">{{myWeather.temp}}° C</h3>
+    <h4 class= "variation">Mínima: <span>{{myWeather.tempMinima}}° C</span></h4>
+    <h4 class= "variation">Máxima: <span>{{myWeather.tempMaxima}}° C</span></h4>
+    <form class="city-form" (ngSubmit)="OnSubmit(form)" #form="ngForm">
+      <div class="form-group city-input">
+        <input type="text" class="form-control" ngModel name="city" aria-describedby="cityHelp" placeholder="Digite o nome da cidade">
+        <small id="cityHelp" class="form-text text-muted">Digite o nome da cidade a qual deseja saber o clima atual.</small>
+        <button type="submit" name="find-button" class="btn btn-primary btn-lg btn-block">Pesquisar</button>
+      </div>
+    </form>
   </div>
 </div>
 

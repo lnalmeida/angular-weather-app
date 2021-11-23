@@ -12,12 +12,12 @@ import { CurrentWeather } from './current-weather';
 export class WeatherService {
 
   current: CurrentWeather = new CurrentWeather(
-                                    'New York',
-                                    '34°',
-                                    'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fpngimg.com%2Fuploads%2Fsun%2Fsun_PNG13436.png&f=1&nofb=1',
-                                    'Ensolarado',
-                                    '23°',
-                                    '37°');
+                                    'Cidade',
+                                    'Temperatura°',
+                                    'Image,',
+                                    'Clima',
+                                    'Min',
+                                    'Máx');
   constructor(private http: HttpClient) {}
 
   weatherNow() {
@@ -28,5 +28,20 @@ export class WeatherService {
     return this.http.get(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${config.API_KEY}&units=metric&lang=pt_br`)
                     .pipe(map((res: any) => res))
 
+  }
+
+  localWeatherForecast(lat: string, long: string) {
+    return this.http.get(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${config.API_KEY}&units=metric&lang=pt_br`)
+                    .pipe(map((res: any) => res))
+  }
+
+  cityWeatherNow(city: string) {
+    return this.http.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${config.API_KEY}&units=metric&lang=pt_br`)
+                    .pipe(map((res: any) => res))
+  }
+
+  cityWeatherForecast(city: string) {
+    return this.http.get(`http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${config.API_KEY}&units=metric&lang=pt_br`)
+                    .pipe(map((res: any) => res))
   }
 }

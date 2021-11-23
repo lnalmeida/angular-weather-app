@@ -6,3 +6,4 @@ export class CurrentWeather {
                public tempMinima: string,
                public tempMaxima: string){}
 }
+

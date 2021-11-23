@@ -1,19 +1,21 @@
 .container-fluid {
 display: flex;
-padding: 2rem 0;
+padding: 1.5rem 0;
 flex-direction: column;
 align-items: center;
 justify-content: center;
 }
 
 .wrapper {
-  padding: 5rem 2rem;
+  padding: 2rem 1rem;
+  margin: 0 4.0625rem 0 0;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 30rem;
-  width: 25rem;
+  height: auto;
+  width: 30rem;
   font-family: 'Open Sans', sans-serif;
   background: #aee4dd;
   color: #fff;
@@ -22,11 +24,51 @@ justify-content: center;
 }
 
 .wrapper img {
-  width: 10rem;
-  height: 10rem;
+  width: 8.5rem;
+  height: 8.5rem;
 }
 
-.wrapper h2 {
+.wrapper .city {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.6rem;
+  text-transform: uppercase;
+}
+
+.wrapper .weather {
+  font-size: 1.5rem;
   margin: 1rem 0;
   text-transform: capitalize;
+}
+
+.city-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.city-form small {
+  font-size: 0.8rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.city-form button {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  text-align: center;
+  text-transform: uppercase;
+
+}
+
+.city-input {
+  line-height: 1.5rem;
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
 }
