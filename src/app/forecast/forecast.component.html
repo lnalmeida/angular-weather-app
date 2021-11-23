@@ -9,16 +9,16 @@
     </div>
   </div>
   <div class="container-fluid">
-      <div *ngFor="let day of [1,2,3,4,5]"  class="card" id="card-wrapper">
+      <div *ngFor="let day of [1,2,3,4,5] "  class="card" id="card-wrapper">
         <div class="card-body" id="body-card">
-          <h2 class="weather">Data</h2>
-          <h2 class="weather">Nublado</h2>
+          <h2 class="weather">{{myForecastWeather.data}}</h2>
+          <h2 class="weather">{{myForecastWeather.tipoClima}}</h2>
           <div class="img">
-            <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="Clima">
+            <img src={{myForecastWeather.imageClimaURI}} alt="Clima">
           </div>
-          <h3 class="temp">24° C</h3>
-          <h4 class= "variation">Mínima: <span>15° C</span></h4>
-          <h4 class= "variation">Máxima: <span>25° C</span></h4>
+          <h3 class="temp">{{myForecastWeather.temp}}° C</h3>
+          <h4 class= "variation">Mínima: <span>{{myForecastWeather.tempMinima}}° C</span></h4>
+          <h4 class= "variation">Máxima: <span>{{myForecastWeather.tempMaxima}}° C</span></h4>
         </div>
       </div>
     </div>

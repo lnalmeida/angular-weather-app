@@ -8,28 +8,36 @@ import { WeatherService } from '../weather.service';
   styleUrls: ['./forecast.component.css']
 })
 export class ForecastComponent implements OnInit {
-  myWeather: ForecastWeather;;
+  myForecastWeather: ForecastWeather;;
   private location: any;
+  fiveDaysWeather: [];
 
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {
-    this.weatherService.weatherNow();
-    this.myWeather = this.weatherService.weatherNow();
+    this.weatherService.weatherForecast();
+    this.myForecastWeather = this.weatherService.weatherForecast();
     navigator.geolocation
       .getCurrentPosition(position => {
         this.location = position.coords;
         const lat = this.location.latitude;
         const long = this.location.longitude;
-        this.weatherService.localWeather(lat, long).subscribe(
+        this.weatherService.localWeatherForecast(lat, long).subscribe(
           data => {
             console.log(data);
-            const { name, main, weather } = data;
-            let { temp, temp_min, temp_max } = main;
-            temp = temp.toFixed(0);
-            temp_min = temp_min.toFixed(0);
-            temp_max = temp_max.toFixed(0);
-            this.myWeather = new ForecastWeather(name, temp, `http://openweathermap.org/img/w/${weather[0].icon}.png`, weather[0].description, temp_min, temp_max);
+            const {name} = data.city;
+            const {list} = data;
+            const fiveDays = list.filter((item: any, index:number) => index % 8 === 0);
+            console.log(fiveDays);
+            this.fiveDaysWeather = fiveDays.map((day: any) => {
+              console.log(day);
+              const { main, weather } = day;
+              let { temp, temp_min, temp_max } = main;
+              temp = temp.toFixed(0);
+              temp_min = temp_min.toFixed(0);
+              temp_max = temp_max.toFixed(0);
+              this.myForecastWeather = new ForecastWeather(name, temp, `http://openweathermap.org/img/w/${weather[0].icon}.png`, weather[0].description, temp_min, temp_max);
+            });
           }
         );
       });// this.weatherService.getForecastWeather()

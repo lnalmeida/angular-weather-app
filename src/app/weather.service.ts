@@ -1,3 +1,4 @@
+import { ForecastWeather } from './forecast-weather';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
@@ -18,10 +19,22 @@ export class WeatherService {
                                     'Clima',
                                     'Min',
                                     'Máx');
+  forecast: ForecastWeather = new ForecastWeather(
+                          'data',
+                          'temp',
+                          'imageClimaURI',
+                          'tipoClima',
+                          'tempMinima',
+                          'tempMaxima');
+
   constructor(private http: HttpClient) {}
 
   weatherNow() {
     return this.current;
+  }
+
+  weatherForecast() {
+    return this.forecast;
   }
 
   localWeather(lat: string, long: string) {
