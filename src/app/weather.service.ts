@@ -20,6 +20,7 @@ export class WeatherService {
                                     'Min',
                                     'Máx');
   forecast: ForecastWeather = new ForecastWeather(
+                          'city',
                           'data',
                           'temp',
                           'imageClimaURI',

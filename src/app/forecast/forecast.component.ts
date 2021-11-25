@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { of } from 'rxjs';
 import { ForecastWeather } from '../forecast-weather';
 import { WeatherService } from '../weather.service';
 
@@ -8,15 +10,27 @@ import { WeatherService } from '../weather.service';
   styleUrls: ['./forecast.component.css']
 })
 export class ForecastComponent implements OnInit {
-  myForecastWeather: ForecastWeather;;
-  private location: any;
+  myForecastWeather: Array<ForecastWeather> = [];
+  location:any;
   fiveDaysWeather: [];
 
   constructor(private weatherService: WeatherService) { }
 
+  formatDate(date: string) {
+    const newDate = new Date(date);
+    return newDate.toLocaleDateString();
+  }
+
   ngOnInit(): void {
+    this.localForecastWeather();
+  }
+
+  OnSubmit(weatherForm: NgForm) {
+    this.cityForecatsWeather(weatherForm.value.city);
+  }
+
+  localForecastWeather() {
     this.weatherService.weatherForecast();
-    this.myForecastWeather = this.weatherService.weatherForecast();
     navigator.geolocation
       .getCurrentPosition(position => {
         this.location = position.coords;
@@ -24,26 +38,43 @@ export class ForecastComponent implements OnInit {
         const long = this.location.longitude;
         this.weatherService.localWeatherForecast(lat, long).subscribe(
           data => {
-            console.log(data);
-            const {name} = data.city;
+            console.log(data.city.name);
+            const {city} = data.city;
             const {list} = data;
             const fiveDays = list.filter((item: any, index:number) => index % 8 === 0);
             console.log(fiveDays);
-            this.fiveDaysWeather = fiveDays.map((day: any) => {
-              console.log(day);
-              const { main, weather } = day;
+            this.fiveDaysWeather = fiveDays.map((day: any, index: number) => {
+              // console.log(day);
+              const { main, weather, dt_txt } = day;
+              let date = this.formatDate(dt_txt.split(' ')[0]);
               let { temp, temp_min, temp_max } = main;
               temp = temp.toFixed(0);
               temp_min = temp_min.toFixed(0);
               temp_max = temp_max.toFixed(0);
-              this.myForecastWeather = new ForecastWeather(name, temp, `http://openweathermap.org/img/w/${weather[0].icon}.png`, weather[0].description, temp_min, temp_max);
+              this.myForecastWeather[index] = new ForecastWeather(city, date, temp, `http://openweathermap.org/img/w/${weather[0].icon}.png`, weather[0].description, temp_min, temp_max);
             });
           }
         );
-      });// this.weatherService.getForecastWeather()
-    //   .subscribe(data => {
-    //     this.myWeather = data;
-    //   });
-  }
+      });
+  };
 
-}
+  cityForecatsWeather(city: string) {
+    this.weatherService.cityWeatherForecast(city).subscribe(
+      data => {
+            const {city} = data.city;
+            const {list} = data;
+            const fiveDays = list.filter((item: any, index:number) => index % 8 === 0);
+            console.log(fiveDays);
+            this.fiveDaysWeather = fiveDays.map((day: any, index: number) => {
+              // console.log(day);
+              const { main, weather, dt_txt } = day;
+              let date = this.formatDate(dt_txt.split(' ')[0]);
+              let { temp, temp_min, temp_max } = main;
+              temp = temp.toFixed(0);
+              temp_min = temp_min.toFixed(0);
+              temp_max = temp_max.toFixed(0);
+              this.myForecastWeather[index] = new ForecastWeather(city, date, temp, `http://openweathermap.org/img/w/${weather[0].icon}.png`, weather[0].description, temp_min, temp_max);
+            });
+      });
+    };
+  }

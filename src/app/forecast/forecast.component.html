@@ -1,24 +1,24 @@
 <main>
   <div class="cityInput">
     <div class="form-group">
-      <div>
+      <form class="city-form" (ngSubmit)="OnSubmit(form)" #form="ngForm">
         <input type="text" class="form-control" ngModel name="city" aria-describedby="cityHelp" placeholder="Digite o nome da cidade">
         <small id="cityHelp" class="form-text text-muted">Digite o nome da cidade a qual deseja saber a previsão para os próximos dias.</small>
-      </div>
-      <button type="submit" name="find-button" class="btn btn-primary btn-lg btn-block">Pesquisar</button>
+        <button type="submit" name="find-button" class="btn btn-primary btn-lg btn-block">Pesquisar</button>
+      </form>
     </div>
   </div>
   <div class="container-fluid">
-      <div *ngFor="let day of [1,2,3,4,5] "  class="card" id="card-wrapper">
+      <div *ngFor="let day of myForecastWeather "  class="card" id="card-wrapper">
         <div class="card-body" id="body-card">
-          <h2 class="weather">{{myForecastWeather.data}}</h2>
-          <h2 class="weather">{{myForecastWeather.tipoClima}}</h2>
+          <h2 class="weather">{{day.data}}</h2>
+          <h2 class="weather">{{day.tipoClima}}</h2>
           <div class="img">
-            <img src={{myForecastWeather.imageClimaURI}} alt="Clima">
+            <img src={{day.imageClimaURI}} alt="Clima">
           </div>
-          <h3 class="temp">{{myForecastWeather.temp}}° C</h3>
-          <h4 class= "variation">Mínima: <span>{{myForecastWeather.tempMinima}}° C</span></h4>
-          <h4 class= "variation">Máxima: <span>{{myForecastWeather.tempMaxima}}° C</span></h4>
+          <h3 class="temp">{{day.temp}}° C</h3>
+          <h4 class= "variation">Mínima: <span>{{day.tempMinima}}° C</span></h4>
+          <h4 class= "variation">Máxima: <span>{{day.tempMaxima}}° C</span></h4>
         </div>
       </div>
     </div>
